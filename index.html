@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronometro Simples e Prático</title>
+    <!-- Link para pegar o stilo CSS dos servidores do BootStrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+    <!-- Link para compartilhar informações junto ao css-->
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-dark bg-dark">
+        <div>
+            <a class="navbar-dark text-white">Cronometro Online</a>
+        </div>
+    </nav>
+
+    <audio id="sound" src="/audiomp3.mp3" style="display: none;"></audio>
+    <div class="container">
+        <br>
+
+        <h2>Minutos:</h2>
+        <select id="minutos" nome="minutos"></select>
+
+        <h2>Segundos</h2>
+        <select id="segundos" nome="segundos"></select>
+        <br />
+        <br />
+        <button id="comecar">Começar!!</button>
+
+        <div id="display">
+            <h3></h3>
+        </div>
+    </div>
+
+    <script>
+        var display = document.getElementById('display');
+
+        var minutos = document.getElementById('minutos');
+        var segundos = document.getElementById('segundos');
+
+        var comecar = document.getElementById('comecar');
+
+        var cronometroSeg;
+
+        var minutoAtual;
+        var segundoAtual;
+
+        var interval;
+
+        for (var i = 0; i <= 60; i++) {
+            minutos.innerHTML += '<Option value= "' + i + '" > ' + i + '</Option>';
+
+        }
+
+        for (var i = 1; i <= 60; i++) {
+            segundos.innerHTML += '<Option value= "' + i + '" > ' + i + '</Option>';
+
+        }
+
+        comecar.addEventListener('click', function () {
+            minutoAtual = minutos.value;
+            segundoAtual = segundos.value;
+
+            display.childNodes[1].innerHTML = minutoAtual + ":" + segundoAtual;
+
+            interval = setInterval(function () {
+
+                segundoAtual--;
+                if (segundoAtual <= 0) {
+                    if (minutoAtual > 0) {
+                        minutoAtual--;
+                        segundoAtual = 59;
+                    } else {
+                        alert("ACABOU O TEMPO")
+                        document.getElementById("sound").play();
+                        clearInterval(interval);
+                    }
+                }
+
+                display.childNodes[1].innerHTML = minutoAtual + ":" + segundoAtual;
+
+            }, 1000);
+        })
+
+    </script>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    
+    <!-- Rodapé -->
+    <footer>
+        <div class="row">
+            <div class="col-md-12 d-flex justify-content-center">
+                <a href="https://www.facebook.com/" target="_blank" class="p-2">
+                    <img class="logo" src="img/facebook.png" alt="Logo do facebook">
+                </a>
+
+                <a href="https://www.instagram.com/" target="_blank" class="p-2">
+                    <img class="logo" src="img/instagram.png" alt="Logo do instagram">
+                </a>
+
+                <a href="https://www.linkedin.com/home" target="_blank" class="p-2">
+                    <img class="logo" src="img/linkedin.png" alt="Logo do linkedin">
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center">
+                    Direitos reservados por: Douglas Michel &copy;
+                </p>
+            </div>
+        </div>
+    </footer>
+
+
+
+</body>
+
+</html>
